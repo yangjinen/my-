@@ -7,3 +7,28 @@
 先看第一组约束，即m[0][j],数据8,12,13,64,22,41，一个一个地放入背包即相加不能大于它的限制条件80
 第二组约束，即m[1][j]，数据8,12,13,75,22,41，也是相加不得大于它的约束值96，以此类推，直到遍历完所有组的约束条件，找到符合条件的物品。然后就得出相应的放入背包的物品，
 并且将其对应的价值相加，最终得出最大价值。
+伪代码如下：
+定义 NUM，CONTENT;
+int m[NUM ][CONTENT];
+初始化 m[n][j]；
+for(j = 0; j <= jMax; j++)
+m[n][j] = 0;
+   for(j = jMax +1; j <= c; j++)
+m[n][j] = v[n];
+解 m[i][j]；//寻找符合约束条件的物品，并存储到m[i][j]
+for(i = n-1) 
+ if((w[i]-1)< c)
+   jMax = w[i]-1;
+       else
+   jMax = c;
+   for(j = 0)
+   m[i][j] = m[i+1][j] ;
+    for(j = jMax +1)
+    if(m[i+1][j] >= (m[i+1][j-w[i]]+v[i]))
+       m[i][j] = m[i+1][j] ;
+   else
+m[i][j] = m[i+1][j-w[i]]+v[i];
+knapsack(value,weight,c,maxvalue);//计算最优值
+traceback(flag,weight,maxvalue);//构造最优解
+printResult(maxvalue);//打印程序的结果
+
